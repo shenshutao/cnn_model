@@ -36,10 +36,10 @@ def do_predict(model_h5, weights_h5, categories, img_width, img_height, input_fo
                 row = [str(f), str(categories[cat_id])]
                 rows.append(row)
             except Exception as e:
-                print e.message
-                print 'Canot predict image: ' + f
+                print(e.message)
+                print('Canot predict image: ' + f)
 
     df = pd.DataFrame(rows, columns=column_names)
     df.to_csv(output_file, index=False, header=True)
-    print 'Done'
+    print('Done')
 
