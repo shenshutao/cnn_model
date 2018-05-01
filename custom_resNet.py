@@ -99,7 +99,7 @@ def train_resNet(train_data_dir, validate_data_dir, categories, res_dir, model_f
     model.fit_generator(
         train_generator,
         steps_per_epoch=train_generator.n // batch_size,
-        epochs=1,
+        epochs=2,
         validation_data=validate_generator,
         validation_steps=validate_generator.n // batch_size)
 
@@ -125,7 +125,7 @@ def train_resNet(train_data_dir, validate_data_dir, categories, res_dir, model_f
     model.fit_generator(
         train_generator,
         steps_per_epoch=train_generator.n // batch_size,
-        epochs=1,
+        epochs=10,
         validation_data=validate_generator,
         validation_steps=validate_generator.n // batch_size,
         callbacks=[check_pointer1, check_pointer2])
@@ -141,7 +141,7 @@ if __name__ == "__main__":
     ImageFile.LOAD_TRUNCATED_IMAGES = True
 
     try:
-        # Download data sets
+        print('======== Download data sets =========')
         download_file_from_google_drive('1l_EmtfJ3QdH2S0QFhFsE22sMKn_vMAAn', 'train_data.zip')
         zip_ref = zipfile.ZipFile('train_data.zip', 'r')
         zip_ref.extractall('train_data')
@@ -152,23 +152,23 @@ if __name__ == "__main__":
         zip_ref.extractall('pictures')
         zip_ref.close()
 
-        # Split data ( just because Keras 2.14 don't support this function.)
+        print('======== Split data into train / validate sets =========') # Just because Keras 2.14 don't support this function.
         split_data('train_data', 'validate_data', 0.3)
 
-        # Train resNet Model !!!
+        print('======== Train resNet Model !!! =========')
         categories = ['Beach', 'City', 'Forest', 'Mountain', 'Village']
         train_resNet('train_data', 'validate_data', categories, 'resNet', 'resnet_last_model.h5',
                      'weights_resnet_best.h5', 224, 224)
         do_predict('resNet/resnet_last_model.h5', 'resNet/weights_resnet_best.h5', categories, 224,
-                  224, 'pictures', 'resNet/output_result.csv')
-        # do_predict('resNet/resnet_last_model.h5', None, '224', '224', 'predict',
+                   224, 'pictures', 'resNet/output_result.csv')
+        # do_predict('resNet/resnet_last_model.h5', None, 224, 224, 'predict',
         #            'resNet/output_result_final.csv')
 
-        # Reformat the output for assignment.
+        print('======== Reformat the output for assignment. =========')
         df = pd.read_csv('resNet/output_result.csv')
-        df['city'] = df['id'].apply(lambda jpgname: jpgname.split('_')[1])
+        df['destination'] = df['id'].apply(lambda jpgname: jpgname.split('_')[1])
 
-        agg_data = df.groupby(['city', 'category']).agg({'category': ['count']})
+        agg_data = df.groupby(['destination', 'category']).agg({'category': ['count']})
         percent_data = agg_data / agg_data.groupby(level=0).sum()
         rows = []
         column_names = ['Destination', 'Mountain', 'Beach', 'Forest', 'City', 'Village']
@@ -181,7 +181,8 @@ if __name__ == "__main__":
         for index, row in percent_data.iterrows():
             df.loc[index[0], index[1]] = str(row[0])
 
+        print('======== Done, store the result ! =========')
         df.to_csv('geofile_bigdata.csv', index=True, header=True)
 
     except Exception as e:
-        print e.message
+        print(e.message)
