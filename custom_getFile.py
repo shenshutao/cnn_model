@@ -1,6 +1,6 @@
 import zipfile
 import requests
-
+import os
 
 def download_file_from_google_drive(id, destination):
     URL = "https://docs.google.com/uc?export=download"
@@ -33,12 +33,14 @@ def save_response_content(response, destination):
 
 
 if __name__ == "__main__":
-    download_file_from_google_drive('1l_EmtfJ3QdH2S0QFhFsE22sMKn_vMAAn', 'train_data.zip')
+    #os.chdir('/Users/shutao/Desktop/abc')
+
+    download_file_from_google_drive('12lMoH5HeZ61BjtUwSAMEdG3yxgnaAsGh', 'train_data.zip')
     zip_ref = zipfile.ZipFile('train_data.zip', 'r')
     zip_ref.extractall('train_data')
     zip_ref.close()
 
-    download_file_from_google_drive('1wKH68-hx8doGewV0n56l6G4j88tgowL7', 'pictures.zip')
+    download_file_from_google_drive('1N03DrCxcqDRjA5-YTEq098Gjf5C2imZ8', 'pictures.zip')
     zip_ref = zipfile.ZipFile('pictures.zip', 'r')
     zip_ref.extractall('pictures')
     zip_ref.close()
