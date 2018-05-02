@@ -9,4 +9,4 @@ git clone https://github.com/shenshutao/cnn_model.git
 
 
 # Alternative: 
-Another version in google colab: https://colab.research.google.com/drive/1fisG-jckrs0vB-3aLBGQSmV1o-d8YVVi
+Another version in google colab: https://drive.google.com/file/d/1fisG-jckrs0vB-3aLBGQSmV1o-d8YVVi/view?usp=sharing
