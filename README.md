@@ -8,3 +8,5 @@ git clone https://github.com/shenshutao/cnn_model.git
   python custom_resNet.py
 
 
+# Alternative: 
+Another version in google colab: https://colab.research.google.com/drive/1fisG-jckrs0vB-3aLBGQSmV1o-d8YVVi
