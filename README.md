@@ -16,3 +16,5 @@ git clone https://github.com/shenshutao/cnn_model.git
 
 # Alternative !!! 
 Another version in google colab: https://drive.google.com/file/d/1fisG-jckrs0vB-3aLBGQSmV1o-d8YVVi/view?usp=sharing
+    
+***It's a customized CNN model for big data course assignment***
