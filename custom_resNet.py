@@ -1,9 +1,9 @@
 import os
 
 from keras import backend as K
-from keras.applications.resnet50 import ResNet50, Flatten
+from keras.applications.resnet50 import ResNet50
 from keras.callbacks import ModelCheckpoint
-from keras.layers import Dense
+from keras.layers import Dense, Flatten
 from keras.models import Model
 from keras.optimizers import Adam
 from keras.preprocessing.image import ImageDataGenerator
